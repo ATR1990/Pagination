@@ -1,0 +1,30 @@
+<main>
+  <div class="section-title">
+    <h1 *ngIf="users.length > 0; else load">Pagination</h1>
+    <ng-template #load>
+      <h1>Loading...</h1>
+    </ng-template>
+    <div class="underline"></div>
+  </div>
+  <section class="followers">
+    <!--Content-->
+    <div class="container">
+      <div *ngFor="let user of users">
+        <app-user [user]="user"></app-user>
+      </div>
+    </div>
+    <!--Pagination-->
+    <div class="btn-container">
+      <button class="prev-btn" (click)="goToPage($event)">prev</button>
+      <div *ngFor="let _ of pages; let idx = index">
+        <button
+          [ngClass]="{'page-btn': true, 'active-btn': index === idx}"
+          [attr.data-index]="idx" (click)="goToPage($event)"
+        >
+          {{idx + 1}}
+        </button>
+      </div>
+      <button class="next-btn" (click)="goToPage($event)">next</button>
+    </div>
+  </section>
+</main>
